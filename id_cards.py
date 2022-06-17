@@ -40,18 +40,18 @@ class BusinessContact(BaseContact):
 
 
 
-
 def function_performance(func):
-    def time_of_performance():
+    def time_of_one_performance():
         sum = 0
         start = time.perf_counter()
-        result = func()
+        func()
         end = time.perf_counter()
-        print(sum + (end - start))
-    return time_of_performance()
+        sum = sum + (end - start)
+        return sum
+    return time_of_one_performance
 
 
-@function_performance
+
 def create_contact(type_of_contact : str,number_of_contacts : int):
     match type_of_contact.lower():
         case  "basic":
@@ -66,4 +66,8 @@ def create_contact(type_of_contact : str,number_of_contacts : int):
 
 
 
-print(create_contact, 1000)
+@function_performance
+def thousend_contacts():
+    return create_contact("basic",1000)
+
+print(thousend_contacts())
