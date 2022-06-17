@@ -1,5 +1,5 @@
 from faker import Faker
-
+import time
 
 fake=Faker()
 
@@ -38,8 +38,21 @@ class BusinessContact(BaseContact):
                f"business phone number: {self.business_phone_number} e-mail:{self.mail}"
 
 
-def create_contact(type_of_contact,number_of_contacts):
 
+
+
+def function_performance(func):
+    def time_of_performance():
+        sum = 0
+        start = time.perf_counter()
+        result = func()
+        end = time.perf_counter()
+        print(sum + (end - start))
+    return time_of_performance()
+
+
+@function_performance
+def create_contact(type_of_contact : str,number_of_contacts : int):
     match type_of_contact.lower():
         case  "basic":
             for _ in range(number_of_contacts):
@@ -53,9 +66,4 @@ def create_contact(type_of_contact,number_of_contacts):
 
 
 
-
-
-
-create_contact("business",3)
-
-
+print(create_contact, 1000)
