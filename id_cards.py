@@ -67,7 +67,7 @@ def create_contact(type_of_contact : str,number_of_contacts : int):
 
 
 @function_performance
-def thousend_contacts():
+def generate_thousend_contacts():
     return create_contact("basic",1000)
 
 thousend_contacts()
