@@ -24,12 +24,17 @@ class Movie:
         return f"{self.title} ({self.year})"
 
 class Series(Movie):
-    def __init__(self,title, year, genre , season = 0, episode = 0, views = 0,type_of_content = "serie"):
+    def __init__(self,title, year, genre ,seasons = [], season = 0, episode = 0, views = 0,type_of_content = "serie"):
         super().__init__(title, year, genre, views, type_of_content )
+        self.seasons = []
         self.episode = str(episode).zfill(2)
         self.season = str(season).zfill(2)
     def __str__(self):
         return f"{self.title} S{self.season}E{self.episode} "
+    def add_content_to_library(self):
+        content={"Title":self.title,"year of debut":self.year,"genre":self.genre,'seasons':self.seasons,"Views":self.views,"type of content": self.type_of_content}
+        library.append(content)
+
 
 
 def get_movies():
@@ -68,33 +73,44 @@ def top_titles(num_of_top_titles : int, content_type : str):
     return top_titles
 
 
+def add_episodes(title ,season: int, num_of_episodes:int,relese_year):
+    num_of_season = f"Season {season} (Relese year: {relese_year}) "
+    episodes = []
+    for episode in range(1, num_of_episodes + 1):
+        episodes.append(str(episode).zfill(2))
+    full_episode_record = {num_of_season: episodes}
+    for i in library:
+        if i['Title'] == title:
+            i['seasons'].append(full_episode_record)
+
 
 
 first_movie=Movie("Doctor Strange:Multiverse of Madness", 2022, "Action")
 second_movie = Movie("Pulp Fiction", 1994, "Action")
 third_movie = Movie("Alien",1979,"Horror")
-first_show = Series("Scrubs",2001,"Comedy",4,3)
-second_show = Series("Lost",2004,"Adventure",1,11)
+first_serie = Series("Scrubs",2001,"Comedy",4,3)
+second_serie = Series("Lost",2004,"Adventure",1,11)
+third_serie = Series("Firends",1994,"Comedy",3,7)
 
 
-second_movie.play()
+
 
 
 
 first_movie.add_content_to_library()
 second_movie.add_content_to_library()
 third_movie.add_content_to_library()
-first_show.add_content_to_library()
-second_show.add_content_to_library()
+first_serie.add_content_to_library()
+second_serie.add_content_to_library()
+third_serie.add_content_to_library()
 
-
-
+print(third_serie)
 
 generate_views()
 
+add_episodes("Scrubs",1,24,2001)
 
-
-print(top_titles(3, "series"))
+print(top_titles(5, "series"))
 
 print(library)
 
