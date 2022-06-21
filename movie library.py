@@ -1,11 +1,12 @@
 import itertools
 import random
 from random import randint
-
+from datetime import date
 
 
 library = []
-
+fliter_by_movies = filter(lambda movie: movie["type of content"] == "movie" ,library)
+filter_by_series = filter(lambda serie: serie("type of content") == "serie", library)
 
 class Movie:
     def __init__(self, title, year, genre, views = 0,type_of_content = "movie"):
@@ -44,7 +45,7 @@ def get_movies():
 
 
 def get_series():
-    series = filter(lambda serie: serie["type of content"] == "serie", library)
+    series = filter(lambda serie: serie("type of content") == "serie", library)
     sorted_series = sorted(series, key=lambda d: d['Title'])
     return list(sorted_series)
 
@@ -60,17 +61,20 @@ def generate_views():
         random_title["Views"] += randint(1,100)
     return random_title
 
-def top_titles(num_of_top_titles : int, content_type : str):
+def top_titles(num_of_top_titles : int, content_type = "all"):
     match content_type:
         case "all":
             top_titles = sorted(library, key=lambda d: d['Views'],reverse=True)[0:num_of_top_titles]
+            titles = [title["Title"] for title in top_titles]
         case "movies":
             movies = filter(lambda movie: movie["type of content"] == "movie" ,library)
             top_titles = sorted(movies, key=lambda d: d['Views'],reverse=True)[0:num_of_top_titles]
+            titles = [title["Title"] for title in top_titles]
         case "series":
             series = filter(lambda serie: serie["type of content"] == "serie", library)
             top_titles = sorted(series, key=lambda d: d['Views'], reverse=True)[0:num_of_top_titles]
-    return top_titles
+            titles = [title["Title"] for title in top_titles]
+    return titles
 
 
 def add_episodes(title ,season: int, num_of_episodes:int,relese_year):
@@ -93,7 +97,7 @@ second_serie = Series("Lost",2004,"Adventure",1,11)
 third_serie = Series("Firends",1994,"Comedy",3,7)
 
 
-
+print(type(second_serie))
 
 
 
@@ -110,8 +114,21 @@ generate_views()
 
 add_episodes("Scrubs",1,24,2001)
 
-print(top_titles(5, "series"))
-
-print(library)
+print(top_titles(4))
 
 
+
+def top_three_popular_content_for_today():
+    today = date.today()
+    top_three = top_titles(3, "all")
+    print(f"Top 3 most popular content for {today}: "
+          f"{top_three}")
+
+
+if __name__ == "__main__":
+    top_three_popular_content_for_today()
+
+
+
+#type szczgółowe
+#
