@@ -26,7 +26,7 @@ class Movie:
         return f"{self.title} ({self.year})"
 
 class Series(Movie):
-    def __init__(self,title, year, genre ,seasons = [], season = 0, episode = 0, views = 0,type_of_content = "serie"):
+    def __init__(self,title, year, genre , episode = 0,season = 0, seasons = [], views = 0,type_of_content = "serie"):
         super().__init__(title, year, genre, views, type_of_content )
         self.seasons = []
         self.episode = str(episode).zfill(2)
@@ -46,7 +46,7 @@ def get_movies():
 
 
 def get_series():
-    series = filter(lambda serie: serie("type of content") == "serie", library)
+    series = filter(lambda serie: serie.__class__ == Series, library)
     sorted_series = sorted(series, key=lambda d: d['Title'])
     return list(sorted_series)
 
@@ -98,7 +98,6 @@ second_serie = Series("Lost",2004,"Adventure",1,11)
 third_serie = Series("Firends",1994,"Comedy",3,7)
 
 
-print(type(second_serie))
 
 
 
@@ -117,6 +116,7 @@ add_episodes("Scrubs",1,24,2001)
 
 print(get_movies())
 print(top_titles(3,"movies"))
+
 
 
 def top_three_popular_content_for_today():
