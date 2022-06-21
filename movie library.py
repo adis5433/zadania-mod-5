@@ -5,8 +5,9 @@ from datetime import date
 
 
 library = []
-fliter_by_movies = filter(lambda movie: movie["type of content"] == "movie" ,library)
-filter_by_series = filter(lambda serie: serie("type of content") == "serie", library)
+
+
+
 
 class Movie:
     def __init__(self, title, year, genre, views = 0,type_of_content = "movie"):
@@ -67,11 +68,11 @@ def top_titles(num_of_top_titles : int, content_type = "all"):
             top_titles = sorted(library, key=lambda d: d['Views'],reverse=True)[0:num_of_top_titles]
             titles = [title["Title"] for title in top_titles]
         case "movies":
-            movies = filter(lambda movie: movie["type of content"] == "movie" ,library)
+            movies = get_movies()
             top_titles = sorted(movies, key=lambda d: d['Views'],reverse=True)[0:num_of_top_titles]
             titles = [title["Title"] for title in top_titles]
         case "series":
-            series = filter(lambda serie: serie["type of content"] == "serie", library)
+            series = get_series()
             top_titles = sorted(series, key=lambda d: d['Views'], reverse=True)[0:num_of_top_titles]
             titles = [title["Title"] for title in top_titles]
     return titles
@@ -114,8 +115,8 @@ generate_views()
 
 add_episodes("Scrubs",1,24,2001)
 
-print(top_titles(4))
-
+print(get_movies())
+print(top_titles(3,"movies"))
 
 
 def top_three_popular_content_for_today():
@@ -129,6 +130,3 @@ if __name__ == "__main__":
     top_three_popular_content_for_today()
 
 
-
-#type szczgółowe
-#
