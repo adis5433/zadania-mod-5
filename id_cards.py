@@ -91,7 +91,7 @@ print(first_id)
 print(create_contacts("business"))
 
 
-
+@function_performance
 def create_thousend_id_cards():
     return create_contacts("basic", 1000)
 
