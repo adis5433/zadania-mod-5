@@ -55,45 +55,44 @@ def function_performance(func):
     def time_of_one_performance():
         total_performance_time = 0
         start_performance = time.perf_counter()
-        print(func())
+        a = func()
         end_performance = time.perf_counter()
         total_performance_time = total_performance_time + (end_performance - start_performance)
         print (total_performance_time)
+        return a
     return time_of_one_performance
 
 
 
-def create_contact(type_of_contact : str):
+def create_contacts(type_of_contact : str, number_of_contacts = 1):
     list_of_contacts = []
     match type_of_contact.lower():
         case  "basic":
+            for _ in range(number_of_contacts):
                 contact = BaseContact(fake.first_name(),fake.last_name(), fake.email(), fake.phone_number())
+                list_of_contacts.append(contact)
         case  "business":
+            for _ in range(number_of_contacts):
                 contact = BusinessContact(fake.company(),fake.job(),fake.phone_number(),
                         fake.first_name(),fake.last_name(),fake.email(), fake.phone_number())
+                list_of_contacts.append(contact)
         case '_':
             return "Wrong choice please choose from 'basic' or 'business'"
-    return contact
+    return list_of_contacts
 
 
 
 first_id = BusinessContact(fake.company(),fake.job(),fake.phone_number(),
                         fake.first_name(),fake.last_name(),fake.email(), fake.phone_number())
 
-print(type(first_id))
+print(first_id)
 
 
-print(create_contact("business"))
-
-
-
-
-contacts = [create_contact("basic") for _ in range(1000)]
-print (contacts)
+print(create_contacts("business"))
 
 
 
+def create_thousend_id_cards():
+    return create_contacts("basic", 1000)
 
-
-
-#styl dwie linij
+print(create_thousend_id_cards())
